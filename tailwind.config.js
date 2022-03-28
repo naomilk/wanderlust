@@ -4,6 +4,9 @@ module.exports = {
     extend: {
       fontFamily: {
         nunito: 'Nunito'
+      },
+      backgroundImage: {
+        'travel-bg': "url(../travel.jpg)"
       }
     },
   },

@@ -22,32 +22,37 @@ export class App extends React.Component {
   render() {
     return (
       <div className='font-nunito'>
-        <header className='h-28 bg-cyan-100 flex justify-center items-center'>
-          <p className='font-black text-cyan-900 text-3xl'>Wanderlust</p>
+        <header className='flex items-center justify-center h-28 bg-gradient-to-b from-cyan-200 to-white'>
+          <p className='text-5xl font-semibold text-cyan-900'>Wanderlust</p>
         </header>
         <main className='m-28'>
 
           {/* search box start */}
-          <div className='border-black border-[1px] px-10 py-4 flex items-center flex-col'>
-            <p>Where do you want to visit?</p>
+          <div className='flex flex-col items-center px-10 pt-4 mb-10'>
+            <p className='mb-4 text-xl'>Where do you want to visit?</p>
             <Searchbar onSearch={this.search} />
           </div>
           {/* search box end */}
 
           {/* results start */}
-          <div className='border-black border-[1px] px-10 py-4 flex  flex-col align-middle'>
-            <p className='text-3xl text-cyan-900'>Paris</p>
-            <div>
-              <p>Current weather:</p>
-              <Weather />
-            </div>
-            <div>
-              <p>Top Attractions:</p>
-              <AttractionList />
+          <div className='flex flex-col px-10 py-20 align-middle bg-cover rounded bg-travel-bg bg-[rgba(249,249,249,0.76)] bg-blend-lighten'>
+            <p className='pb-10 text-5xl text-cyan-900'>Paris</p>
+            <div className='flex gap-x-10'>
+              <div>
+                <p className='pb-5 text-xl'>Current weather</p>
+                <Weather />
+              </div>
+              <div>
+              <p className='pb-5 text-xl '>Top Attractions</p>
+                <AttractionList />
+              </div>
             </div>
           </div>
           {/* results end */}
         </main>
+        <footer className='fixed bottom-0 flex items-center justify-center w-screen h-14 bg-cyan-100'>
+          <p className='text-cyan-900'>Copyright &copy; 2022 Naomi Kangwa</p>
+        </footer>
       </div>
     )
   }

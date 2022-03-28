@@ -3,6 +3,7 @@ import { Weather } from '../Weather/Weather';
 import { AttractionList } from '../AttractionList/AttractionList';
 import { Searchbar } from '../Searchbar/Searchbar';
 import { nearbyPlaces } from '../../util/PlacesAPI';
+import { getWeather } from '../../util/OpenWeatherAPI';
 
 export class App extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ export class App extends React.Component {
     this.state = {
       searchResults: [],
       searchWord: '',
+      weatherResults: []
     }
     this.search = this.search.bind(this)
   }
@@ -19,7 +21,8 @@ export class App extends React.Component {
     nearbyPlaces(searchWord).then((results) => {
       this.setState({
         searchResults: results.splice(0, 4),
-        searchWord: searchWord
+        searchWord: searchWord,
+
       }, () => {
         if(!this.state.searchResults.length) {
           alert('invalid search');
@@ -28,7 +31,7 @@ export class App extends React.Component {
           })
         }
       })
-    })
+    });
   }
 
   render() {
@@ -51,7 +54,7 @@ export class App extends React.Component {
             <p className='pb-10 text-5xl capitalize text-cyan-900'>{this.state.searchWord}</p>
             <div className='flex gap-x-5'>
               <div>
-                <Weather />
+                <Weather results={} />
               </div>
               <div>
                 <AttractionList results={this.state.searchResults} />

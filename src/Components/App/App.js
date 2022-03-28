@@ -8,15 +8,27 @@ export class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: []
+      searchResults: [],
+      searchWord: '',
     }
+    this.search = this.search.bind(this)
   }
 
-  //passes the search word from searchbar to the nearbyPlaces var and once we have a json response, saves that response to state under searchResults
+  //passes the search word from searchbar to the nearbyPlaces var and once we have a json response with the results, saves that response to state under searchResults
   search(searchWord) {
-    nearbyPlaces(searchWord).then((searchResults => {
-      this.setState({ searchResults: searchResults})
-    }))
+    nearbyPlaces(searchWord).then((results) => {
+      this.setState({
+        searchResults: results.splice(0, 4),
+        searchWord: searchWord
+      }, () => {
+        if(!this.state.searchResults.length) {
+          alert('invalid search');
+          this.setState({
+            searchWord: ''
+          })
+        }
+      })
+    })
   }
 
   render() {
@@ -36,15 +48,13 @@ export class App extends React.Component {
 
           {/* results start */}
           <div className='flex flex-col px-10 py-20 align-middle bg-cover rounded bg-travel-bg bg-[rgba(249,249,249,0.76)] bg-blend-lighten'>
-            <p className='pb-10 text-5xl text-cyan-900'>Paris</p>
-            <div className='flex gap-x-10'>
+            <p className='pb-10 text-5xl capitalize text-cyan-900'>{this.state.searchWord}</p>
+            <div className='flex gap-x-5'>
               <div>
-                <p className='pb-5 text-xl'>Current weather</p>
                 <Weather />
               </div>
               <div>
-              <p className='pb-5 text-xl '>Top Attractions</p>
-                <AttractionList />
+                <AttractionList results={this.state.searchResults} />
               </div>
             </div>
           </div>

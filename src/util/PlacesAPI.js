@@ -10,16 +10,26 @@ const options = {
 };
 
 //seachWord will be passed in App.js
-export const nearbyPlaces = async (searchWord) => {
-    const endpoint = `${baseUrl}/places/nearby?query=${searchWord}`;
-    try {
-        const response = await fetch(endpoint, options);
-        if(response.ok) {
-            return await response.json();
+//calling this should return a json file containing results of places with their id, name, photo etc
+export async function nearbyPlaces(searchWord) {
+    const queryParams = {
+        near: searchWord
+    }
+
+    const endpoint = `${baseUrl}/places/search?${new URLSearchParams(queryParams).toString()}`;
+
+    const response = await fetch(endpoint, options);
+    if (response.ok) {
+        const data = await response.json();
+
+        if (! data.results) {
+            return [];
         }
 
-        throw new Error('Request failed!')
-    } catch(error) {
-        console.log(error)
+        return data.results;
     }
-};
+
+    if (! response.ok) {
+        return [];
+    }
+}

@@ -1,4 +1,4 @@
-const placesKey = 'fsq3gknjFCjCw/HbQnb/ZaTedVh/t4ovOJBtfCNUFhJuOPE=';
+const placesKey = process.env.REACT_APP_PLACES_KEY;
 const baseUrl = 'https://api.foursquare.com/v3';
 
 const options = {

@@ -1,22 +1,23 @@
-const openWeatherKey = 'd0d8faabcd030fc125c0acf7adaa496f';
-const baseUrl = 'http://api.openweathermap.org/geo/1.0';
+const openWeatherKey = process.env.REACT_APP_OPEN_WEATHER_KEY;
+const baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
 export async function getWeather(searchWord) {
     const queryParams = {
         q: searchWord,
-        aapid: openWeatherKey,
-        limit: 1
+        APPID: openWeatherKey,
     };
 
-    const endpoint = `${baseUrl}/direct?${new URLSearchParams(queryParams).toString()}`;
+    const endpoint = `${baseUrl}?${new URLSearchParams(queryParams).toString()}`;
 
     const response = await fetch(endpoint);
     if (response.ok) {
         const data = await response.json();
-        if (! data.results) {
+
+        if (! data) {
             return [];
         }
-        return data.results;
+
+        return data;
     }
 
     if (! response.ok) {

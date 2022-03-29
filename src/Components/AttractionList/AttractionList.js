@@ -5,7 +5,7 @@ export class AttractionList extends React.Component {
     render() {
         const attractionList = this.props.results.map((result) => {
             return (
-                <Attraction name={result.name} type={result.categories[0].name} icon={`${result.categories[0].icon.prefix}bg_44${result.categories[0].icon.suffix}`} address={result.location.formatted_address} />
+                <Attraction name={result.name} type={result.categories[0].name} icon={`${result.categories[0].icon.prefix}bg_44${result.categories[0].icon.suffix}`} address={result.location.formatted_address} key={result.fsq_id}/>
             )
           });
         return (
